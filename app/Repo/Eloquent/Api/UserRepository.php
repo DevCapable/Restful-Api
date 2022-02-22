@@ -45,4 +45,20 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     {
 
     }
+
+    public function getByRoleAndEmail($email){
+        return   $this->model->where('role','buyer')->where('email',$email)->first();
+
+    }
+
+    public function updateDepositWithEmail($email,$current_ballance){
+        return $this->model->where('email',$email)->update(['deposit' =>  $current_ballance]);
+    }
+
+    public function getUserWithEmail($email){
+        $user = $this->model->where('email',$email)->first();
+
+        return $user;
+
+    }
 }

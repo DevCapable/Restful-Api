@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
-class AuthController extends ApiBaseController
+class AuthController
 {
     private $userRepository;
     public function __construct(UserRepositoryInterface $userRepository)
@@ -69,7 +69,7 @@ class AuthController extends ApiBaseController
     }
 
     public function depositCoin($email, Request $request){
-        $user= $this->getByRoleAndEmail($email);
+        $user= $this->userRepository->getByRoleAndEmail($email);
         if ($user){
             $coin_request = array($request->deposit);
             $serialized_array = serialize($coin_request);
@@ -81,15 +81,15 @@ class AuthController extends ApiBaseController
 //            array_map('intval', explode(',', $request->deposit));
 //            return response()->json($balance,201);
 
-            $this->updateDepositWithEmail($email,$coins_array);
-            $user= $this->getUserWithEmail($email);
+            $this->userRepository->updateDepositWithEmail($email,$coins_array);
+            $user= $this->userRepository->getUserWithEmail($email);
             return response()->json(['message'=>'You coin successfully updated',$user], 201);
         }
         return response()->json(['message'=>'You have to be a buyer before you can deposit'],401);
     }
 
     public function buyProduct($email, Request $request){
-        $user= $this->getByRoleAndEmail($email);
+        $user= $this->userRepository->getByRoleAndEmail($email);
 //        $user= User::where('role','buyer')->where('email',$email)->first();
 
         if ($user){
