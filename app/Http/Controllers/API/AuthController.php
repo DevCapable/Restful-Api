@@ -30,7 +30,7 @@ class AuthController extends ApiBaseController
 //            'email' => $request->email,
 //            'password' => Hash::make($request->password)
 //        ]);
-        $user = $this->userRepository->create($request);
+        $user = $this->userRepository->create($request->all());
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -48,7 +48,7 @@ class AuthController extends ApiBaseController
         }
 
 //        $user = User::where('email', $request['email'])->firstOrFail();
-        $user = $this->userRepository->findById($request);
+        $user = $this->userRepository->findByEmail($request);
 
         $token = $user->createToken('auth_token')->plainTextToken;
         Session::put('token', $token);

@@ -63,7 +63,7 @@ class ProductController extends Controller
             $data['data'] = $request->all();
              $this->productRepository->update($data);
 //                $updatedProduct = Product::where('id',$id)->first();
-                $updatedProduct = $this->productRepository->findById($id);
+                $updatedProduct = $this->productRepository->findWithId($id);
                 return response()->json(['message'=>'Your product has been updated',$updatedProduct]);
             }
             return response()->json('Error occurred');
