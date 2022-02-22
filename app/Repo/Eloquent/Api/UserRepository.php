@@ -10,16 +10,16 @@ use Illuminate\Support\Facades\Hash;
 class UserRepository implements UserRepositoryInterface
 {
 
-    public function create($request)
+    public function create($data)
     {
 
 
       return   User::create([
-            'username' => $request->username,
-            'role'=>$request->role,
-            'deposit'=>$request->deposit ? $request->deposit : '0',
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'username' => $data->username,
+            'role'=>$data->role,
+            'deposit'=>$data->deposit ? $data->deposit : '0',
+            'email' => $data->email,
+            'password' => Hash::make($data->password)
         ]);
 
 
@@ -32,9 +32,9 @@ class UserRepository implements UserRepositoryInterface
 
     }
 
-    public function findById($request)
+    public function findById($data)
     {
-           return  User::where('email', $request['email'])->firstOrFail();
+           return  User::where('email', $data['email'])->firstOrFail();
 
     }
 

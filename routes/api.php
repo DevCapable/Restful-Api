@@ -27,7 +27,7 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::post('/update/{id}', [App\Http\Controllers\API\AuthController::class, 'update']);
     Route::get('/edit/{id}', [App\Http\Controllers\API\AuthController::class, 'edit']);
     Route::delete('/delete/{id}', [App\Http\Controllers\API\AuthController::class, 'destroy']);
-    Route::post('/depositCents/{email}', [App\Http\Controllers\API\AuthController::class, 'depositCents']);
+    Route::post('/depositCoin/{email}', [App\Http\Controllers\API\AuthController::class, 'depositCoin']);
     Route::post('/buyProduct/{email}', [App\Http\Controllers\API\AuthController::class, 'buyProduct']);
 
     Route::post('/createProduct', [App\Http\Controllers\API\ProductController::class, 'createProduct']);

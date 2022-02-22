@@ -78,24 +78,17 @@ class AuthController extends ApiBaseController
 
     public function update($id, Request $request){
     $this->getValidation($request);
-//        $user = User::update([
-//            'username' => $request->username,
-//            'role'=>$request->role,
-//            'deposit'=>$request->deposit ? $request->deposit : '0',
-//            'email' => $request->email,
-//            'password' => Hash::make($request->password)
-//        ]);
         $data['id']= $id;
         $data['data'] = $request->all();
         $this->userRepository->update($data);
     }
 
-    public function depositCents($email, Request $request){
+    public function depositCoin($email, Request $request){
         $user= $this->getByRoleAndEmail($email);
         if ($user){
             $coin_request = array($request->deposit);
             $serialized_array = serialize($coin_request);
-            $unserialized_array = unserialize($serialized_array);
+            $coins_array = unserialize($serialized_array);
 
 //              $pre_coin[]  = $user->deposit;
 //            $balance = array_map('intval', explode(',', $user->deposit));
@@ -103,8 +96,8 @@ class AuthController extends ApiBaseController
 //            array_map('intval', explode(',', $request->deposit));
 //            return response()->json($balance,201);
 
-            $this->updateDepositWithEmail($email,$unserialized_array);
-            $user= $this->getWithEmail($email);
+            $this->updateDepositWithEmail($email,$coins_array);
+            $user= $this->getUserWithEmail($email);
             return response()->json(['message'=>'You coin successfully updated',$user], 201);
         }
         return response()->json(['message'=>'You have to be a buyer before you can deposit'],401);

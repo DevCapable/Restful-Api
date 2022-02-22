@@ -16,7 +16,7 @@ class ApiBaseController extends Controller
         return User::where('email',$email)->update(['deposit' =>  $current_ballance]);
     }
 
-    public function getWithEmail($email){
+    public function getUserWithEmail($email){
         $user = User::where('email',$email)->first();
 
         return $user;
