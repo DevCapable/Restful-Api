@@ -12,6 +12,9 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
     public function __construct(Model $model){
         $this->model = $model;
     }
+    public function getAll(){
+        return $this->model;
+    }
 
     public function create($data)
     {
@@ -20,7 +23,7 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
     //         'product_name'=> $data->product_name,
     //     ]);
 
-    return $this->model::create($data);
+    return $this->model->create($data);
     }
 
     public function update($data)
@@ -28,27 +31,28 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
         // return Product::where('id',$data['id'])->update(['cost'=>$data['data']['cost'],
         //             'product_name'=>$data['data']['product_name']]);
 
-        return $this->model::where('id',$data['id'])->update($data);
+        return $this->model->where('id',$data['id'])->update($data);
 
     }
 
     public function findWithId($id)
     {
         //    return  Product::where('id',$id)->first();
-           return $this->model::where('id',$id)->first();
+           return $this->model->where('id',$id)->first();
 
     }
 
     public function destroy($product)
     {
-        $item = $this->model::where('id',$product->id)->first();
+        $item = $this->model->where('id',$product->id)->first();
 
         return $item->delete();
     }
 
     public function searchByName($name)
     {
-        return $this->model::where('product_name','like','%'.$name.'%')->get();
+        return $this->model->where('product_name','like','%'.$name.'%')->get();
 
     }
+
 }

@@ -17,8 +17,7 @@ class ProductController extends Controller
         $this->productRepository = $productRepository;
     }
         public function getAllProduct(){
-            $product = Product::all();
-
+            $product = $this->productRepository->getAll();
                 return response()->json($product);
 
         }
@@ -30,14 +29,13 @@ class ProductController extends Controller
             if ($validator->fails()){
                 return response()->json($validator->errors());
             }
-            $product = $this->productRepository->create($request);
+            $product = $this->productRepository->create($request->all());
             return response()->json(['Product created successfully',$product]);
         }
         public function deleteProduct($id){
-//            $product = Product::where('id',$id)->first();
+
             $product= $this->productRepository->findById($id);
             if ($product){
-//                $product->delete();
                 $this->productRepository->destroy($product);
                 return response()->json('Product deleted Successfully');
             }
@@ -53,12 +51,10 @@ class ProductController extends Controller
             if ($validator->fails()){
                 return response()->json($validator->errors());
             }
-            $product = Product::where('id',$id)->first();
-//            $product= $this->productRepository->findById($id)->first();
+            $product = $this->productRepository->findWithId($id);
 
             if ($product){
-//             $producte =   Product::where('id',$product->id)->update(['cost'=>$request->cost,
-//                    'product_name'=>$request->product_name]);
+
             $data['id'] = $id;
             $data['data'] = $request->all();
              $this->productRepository->update($data);

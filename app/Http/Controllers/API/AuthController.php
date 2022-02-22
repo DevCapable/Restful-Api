@@ -23,13 +23,6 @@ class AuthController extends ApiBaseController
 
         $this->getValidation($request);
 
-//        $user = User::create([
-//            'username' => $request->username,
-//            'role'=>$request->role,
-//            'deposit'=>$request->deposit ? $request->deposit : '0',
-//            'email' => $request->email,
-//            'password' => Hash::make($request->password)
-//        ]);
         $user = $this->userRepository->create($request->all());
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -47,7 +40,6 @@ class AuthController extends ApiBaseController
                 ->json(['message' => 'Unauthorized'], 401);
         }
 
-//        $user = User::where('email', $request['email'])->firstOrFail();
         $user = $this->userRepository->findByEmail($request);
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -56,15 +48,8 @@ class AuthController extends ApiBaseController
             ->json(['message' => 'Hi '.$user->username.', welcome to home','access_token' => $token, 'token_type' => 'Bearer',]);
     }
 
-    // method for user logout and delete token
     public function logout()
     {
-//        dd(Session::get('token'));
-//        $request->session()->forget('user');
-//        $request->session()->regenerate();
-//        $token = User::all();
-//        Session::put('token','ade');
-//        $getToken = Session::get('token');
 
         auth()->user()->tokens()->delete();
 

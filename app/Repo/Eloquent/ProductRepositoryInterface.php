@@ -4,7 +4,7 @@ namespace App\Repo\Eloquent;
 
 interface ProductRepositoryInterface
 {
-    public function create($data);
+    public function create(array $data);
 
     public function update(array $data);
 
