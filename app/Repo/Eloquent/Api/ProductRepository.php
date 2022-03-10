@@ -9,7 +9,7 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
 {
 
 
-    public function __construct(Model $model){
+    public function __construct(Product $model){
         $this->model = $model;
     }
     public function getAll(){
@@ -18,18 +18,11 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
 
     public function create($data)
     {
-    //   return Product::create([
-    //         'cost'=> $data->cost,
-    //         'product_name'=> $data->product_name,
-    //     ]);
-
     return $this->model->create($data);
     }
 
     public function update($data)
     {
-        // return Product::where('id',$data['id'])->update(['cost'=>$data['data']['cost'],
-        //             'product_name'=>$data['data']['product_name']]);
 
         return $this->model->where('id',$data['id'])->update($data);
 
@@ -37,7 +30,6 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
 
     public function findWithId($id)
     {
-        //    return  Product::where('id',$id)->first();
            return $this->model->where('id',$id)->first();
 
     }

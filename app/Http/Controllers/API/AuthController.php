@@ -18,6 +18,7 @@ class AuthController
     {
         $this->userRepository = $userRepository;
     }
+
     public function register(Request $request)
     {
 
@@ -105,7 +106,7 @@ class AuthController
                 $current_ballance[] = array_diff($balance, array($amount));
 //                return response()->json($current_ballance, 201);
 
-                $user =  $this->updateDepositWithEmail($email,$current_ballance);
+                $user =  $this->userRepository->updateDepositWithEmail($email,$current_ballance);
                 return response()->json(['message'=>'You coin is available'], 201);
             }else{
                 return response()->json(['message'=>'These are your coins left', $user->deposit],401);

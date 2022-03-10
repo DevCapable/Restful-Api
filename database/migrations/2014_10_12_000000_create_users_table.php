@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('role')->nullable();
             $table->integer('deposit')->nullable();
-            $table->string('username');
+            $table->string('name');
             $table->string('api_token')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

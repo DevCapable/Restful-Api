@@ -32,16 +32,6 @@ class ProductController extends Controller
             $product = $this->productRepository->create($request->all());
             return response()->json(['Product created successfully',$product]);
         }
-        public function deleteProduct($id){
-
-            $product= $this->productRepository->findById($id);
-            if ($product){
-                $this->productRepository->destroy($product);
-                return response()->json('Product deleted Successfully');
-            }
-            return response()->json(['Product not found']);
-
-        }
 
 
         public function updateProduct($id, Request $request){
@@ -70,6 +60,18 @@ class ProductController extends Controller
             $this->productRepository->searchByName($name);
             return response()->json(['message'=>'Your available result:',$this]);
         }
+
+    public function deleteProduct($id){
+
+        $product= $this->productRepository->findById($id);
+        if ($product){
+            $this->productRepository->destroy($product);
+            return response()->json('Product deleted Successfully');
+        }
+        return response()->json(['Product not found']);
+
+    }
+
 
         public function getValidation(Request $request){
             $validator = Validator::make($request->all(),[
